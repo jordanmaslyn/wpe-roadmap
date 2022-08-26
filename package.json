@@ -9,11 +9,16 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.6",
+    "@wordpress/hooks": "^3.16.0",
     "apollo-link-logger": "^2.0.0",
+    "cookie": "^0.5.0",
     "cross-fetch": "^3.1.5",
+    "deepmerge": "^4.2.2",
+    "faust-nx": "file:./faust-nx/dist/mjs/index.js",
+    "faust-nx-cli": "file:./faust-nx-cli/dist/index.js",
+    "isomorphic-fetch": "^3.0.0",
+    "lodash": "^4.17.21",
     "next": "^12.1.6",
-    "faust-nx": "file:./packages/faust-nx/dist/index.js",
-    "faust-nx-cli": "file:./packages/faust-nx-cli/dist/index.js",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

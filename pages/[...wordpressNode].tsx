@@ -1,7 +1,7 @@
-import 'faustnx.config';
-import { getWordPressProps, WordPressTemplate } from 'faust-nx';
-import { GetStaticPropsContext } from 'next';
-import client from 'client';
+import "faustnx.config";
+import { getWordPressProps, WordPressTemplate } from "../faust-nx/dist/cjs";
+import { GetStaticPropsContext } from "next";
+import client from "client";
 
 export default function Page(props: any) {
   return <WordPressTemplate {...props} />;
@@ -14,6 +14,6 @@ export function getStaticProps(ctx: GetStaticPropsContext) {
 export async function getStaticPaths() {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }
