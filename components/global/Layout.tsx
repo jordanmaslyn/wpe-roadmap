@@ -87,7 +87,7 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
           {menuItems.map(
             (menuItem) =>
               menuItem.url && (
-                <li>
+                <li key={menuItem.url}>
                   <Link
                     href={menuItem.url}
                     target={menuItem.target ?? "_self"}
