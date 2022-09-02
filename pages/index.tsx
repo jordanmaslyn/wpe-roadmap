@@ -43,7 +43,7 @@ export default function Page({
               after: $after
               where: {
                 orderby: [
-                  { field: MENU_ORDER, order: ASC }
+                  { field: RELEASE_STATUS, order: ASC }
                   { field: DATE, order: DESC }
                 ]
               }
@@ -68,7 +68,19 @@ export default function Page({
         setLatestEndCursor(response.data.releases.pageInfo.endCursor);
         setLatestHasNextPage(response.data.releases.pageInfo.hasNextPage);
 
-        setLatestReleases([...latestReleases, ...response.data.releases.nodes]);
+        const releaseIds = [] as string[];
+        setLatestReleases(
+          [...latestReleases, ...response.data.releases.nodes].filter(
+            (release: Release) => {
+              if (releaseIds.includes(release.id)) {
+                return false;
+              }
+
+              releaseIds.push(release.id);
+              return true;
+            }
+          )
+        );
 
         setIsLoading(false);
       });
@@ -134,7 +146,7 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
             }
           }
         }
-        releases(first: ${RELEASES_PER_PAGE}, where: {orderby: [{field: MENU_ORDER, order: ASC}, {field: DATE, order:DESC}]}) {
+        releases(first: ${RELEASES_PER_PAGE}, where: {orderby: [{field: RELEASE_STATUS, order: ASC}, {field: DATE, order:DESC}]}) {
           pageInfo {
             hasNextPage
             endCursor
