@@ -74,16 +74,22 @@ const flatListToHierarchical = (
   data = [] as MenuItem[],
   { idKey = "id", parentKey = "parentId", childrenKey = "children" } = {}
 ) => {
+  // @ts-ignore
   const tree = [];
   const childrenOf = {};
   data.forEach((item) => {
     const newItem = { ...item };
+    // @ts-ignore
     const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+    // @ts-ignore
     childrenOf[id] = childrenOf[id] || [];
+    // @ts-ignore
     newItem[childrenKey] = childrenOf[id];
     parentId
-      ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+      ? // @ts-ignore
+        (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
       : tree.push(newItem);
   });
+  // @ts-ignore
   return tree;
 };
