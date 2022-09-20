@@ -13,7 +13,11 @@ export function StatusTag({ release }: Props) {
     <span
       className={`rounded-full border-2 bg-${getBackgroundColor(
         release
-      )} text-${getColor(release)} border-${getColor(release)} px-3 py-1`}
+      )} text-${getColor(
+        release
+      )} text-xs md:text-sm lg:text-base whitespace-nowrap lg:text border-${getColor(
+        release
+      )} px-3 py-1`}
     >
       {formatText(release)}
     </span>

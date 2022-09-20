@@ -26,14 +26,16 @@ export function ReleaseCard({ release }: Props) {
         }}
       >
         <div className="flex w-full items-center justify-between border-b pb-3 flex-wrap md:flex-nowrap">
-          <div className="">
+          <div className="w-8/12 lg:w-auto">
             <p className="text-xs text-soot">
               {release.products.nodes[0].name}
             </p>
-            <h2 className="text-2xl font-bold text-black">{release.title}</h2>
+            <h2 className="text-lg lg:text-2xl leading-tight lg:leading-normal font-bold text-black">
+              {release.title}
+            </h2>
             {hasContextualLinks && <ContextualLinks release={release} />}
           </div>
-          <div className="flex items-center justify-end mt-2 md:mt-0">
+          <div className="flex items-center justify-end mt-2 md:mt-0 w-1/4 lg:w-auto">
             <StatusTag release={release} />
           </div>
         </div>

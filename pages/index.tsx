@@ -92,10 +92,12 @@ export default function Page({
   return (
     <Layout menuItems={menuItems}>
       <div className="min-h-screen bg-polar py-6 lg:py-12">
-        <div className="xl:w-1/2 mx-auto flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-mirage">Atlas Roadmap</h1>
-            <p className="font-light">
+        <div className="xl:w-1/2 mx-auto px-2 flex justify-between items-center">
+          <div className="">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-mirage">
+              Atlas Roadmap
+            </h1>
+            <p className="text-sm lg:text-base font-light">
               <em>Last Updated: {lastUpdated}</em>
             </p>
           </div>
