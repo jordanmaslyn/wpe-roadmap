@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
-import { Layout, MenuItemFragment } from "components/global/Layout";
+import { Layout } from "components/global/Layout";
+import { MenuItemFragment } from "components/global/MenuItem";
 
 const Component = (props: any) => {
   const { title, content } = props?.data?.page;

@@ -6,7 +6,8 @@ import {
   ReleaseCard,
   ReleaseFragment,
 } from "components/releases/Release";
-import { Layout, MenuItem, MenuItemFragment } from "components/global/Layout";
+import { Layout } from "components/global/Layout";
+import { MenuItem, MenuItemFragment } from "components/global/MenuItem";
 import { MouseEvent, useState } from "react";
 
 const RELEASES_PER_PAGE = 3;
