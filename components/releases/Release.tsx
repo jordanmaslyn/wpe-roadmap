@@ -9,23 +9,37 @@ interface Props {
 
 export function ReleaseCard({ release }: Props) {
   const hasContextualLinks = !!release.customFields.contextualLinks?.length;
+  const hasReleaseTiming =
+    !!release.customFields.releaseDate ||
+    !!release.customFields.expectedRelease;
+  console.log(
+    release.title,
+    release.customFields.releaseDate,
+    release.customFields.expectedRelease,
+    hasReleaseTiming
+  );
   const hasCta =
     release.customFields.callToAction.url &&
     release.customFields.callToAction.label;
 
   return (
     <div className="flex items-center justify-center my-6 lg:my-12 first:mt-0 last:mb-0">
-      <div className="rounded-xl border p-5 shadow-md xl:w-1/2 mx-2 bg-white">
+      <div
+        className="rounded-sm border p-5 xl:w-1/2 mx-2 bg-white"
+        style={{
+          boxShadow:
+            "0px 4px 8px rgba(89, 118, 127, 0.48), 0px 0px 1px rgba(0, 40, 56, 0.32)",
+        }}
+      >
         <div className="flex w-full items-center justify-between border-b pb-3 flex-wrap md:flex-nowrap">
-          <div className="flex items-center space-x-3">
-            <div className="text-lg font-bold text-slate-700">
-              {release.title}
-            </div>
+          <div className="">
+            <p className="text-xs text-soot">
+              {release.products.nodes[0].name}
+            </p>
+            <h2 className="text-2xl font-bold text-black">{release.title}</h2>
+            {hasContextualLinks && <ContextualLinks release={release} />}
           </div>
           <div className="flex items-center justify-end mt-2 md:mt-0">
-            <span className="rounded border bg-neutral-100 px-3 py-1 mr-3 text-xs font-semibold">
-              {release.products.nodes[0].name}
-            </span>
             <StatusTag release={release} />
           </div>
         </div>
@@ -37,9 +51,26 @@ export function ReleaseCard({ release }: Props) {
           />
         </div>
 
-        {(hasContextualLinks || hasCta) && (
+        {(hasReleaseTiming || hasCta) && (
           <footer className="flex justify-between items-center flex-wrap">
-            {hasContextualLinks && <ContextualLinks release={release} />}
+            {hasReleaseTiming && (
+              <p className="text-soot">
+                <em>
+                  {!!release.customFields.releaseDate
+                    ? "Released"
+                    : "Expected release"}
+                  :{" "}
+                  {!!release.customFields.releaseDate
+                    ? new Date(
+                        release.customFields.releaseDate
+                      ).toLocaleDateString("en-US", {
+                        month: "long",
+                        year: "numeric",
+                      })
+                    : release.customFields.expectedRelease}
+                </em>
+              </p>
+            )}
             {hasCta && <CallToAction release={release} />}
           </footer>
         )}
@@ -64,6 +95,8 @@ export interface Release {
     nodes: Array<{ slug: string; name: string }>;
   };
   customFields: {
+    releaseDate: string;
+    expectedRelease: string;
     callToAction: { label: string | null; url: string | null };
     contextualLinks: null | Array<{
       type: string;
@@ -96,6 +129,8 @@ export const ReleaseFragment = gql`
       }
     }
     customFields {
+      releaseDate
+      expectedRelease
       contextualLinks {
         type
         label

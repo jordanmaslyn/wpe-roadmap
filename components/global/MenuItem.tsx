@@ -43,7 +43,7 @@ export default function MenuItem({ item, isChild = false }: Props) {
           <a
             className={`text-${
               isChild ? "soot" : "mirage"
-            } whitespace-nowrap hover:text-tiffany transition-color block p-2 ${
+            } whitespace-nowrap hover:text-tiffany transition-colors block p-2 ${
               isChild ? "text-sm" : ""
             }`}
           >
@@ -60,7 +60,9 @@ export default function MenuItem({ item, isChild = false }: Props) {
       </span>
       {!!item.children?.length && !isChild && (
         <ul
-          className={`lg:absolute bg-white min-w-full lg:top-full lg:translate-y-0.5 lg:opacity-${
+          className={`lg:absolute pointer-events-${
+            isExpanded ? "auto" : "none"
+          } bg-white min-w-full lg:top-full lg:translate-y-0.5 lg:opacity-${
             isExpanded ? "100" : "0"
           } transition-opacity`}
           style={{ padding: "3px 9px" }}

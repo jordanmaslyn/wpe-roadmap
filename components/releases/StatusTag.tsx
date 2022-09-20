@@ -11,9 +11,9 @@ export function StatusTag({ release }: Props) {
 
   return (
     <span
-      className={`rounded border bg-${getColor(release)}-100 text-${getColor(
+      className={`rounded-full border-2 bg-${getBackgroundColor(
         release
-      )} border-${getColor(release)} px-3 py-1 text-xs font-semibold`}
+      )} text-${getColor(release)} border-${getColor(release)} px-3 py-1`}
     >
       {formatText(release)}
     </span>
@@ -38,15 +38,33 @@ function getColor(release: Release): string {
   }
 }
 
-function formatText(release: Release): string {
+function getBackgroundColor(release: Release): string {
   const status = release.statuses.nodes[0];
 
   switch (status.slug) {
     case "launched":
     case "archived":
-      return `${
-        status.releaseStatusFields.displayName ?? status.name
-      } - ${formatDate(release.date)}`;
+      return "polar";
+    case "in-development":
+      return "royal-100";
+    case "planning":
+      return "lapis-100";
+    case "ideation":
+      return "sunset-100";
+    default:
+      return "neutral-100";
+  }
+}
+
+function formatText(release: Release): string {
+  const status = release.statuses.nodes[0];
+
+  switch (status.slug) {
+    // case "launched":
+    // case "archived":
+    //   return `${
+    //     status.releaseStatusFields.displayName ?? status.name
+    //   } - ${formatDate(release.date)}`;
     default:
       return status.releaseStatusFields.displayName ?? status.name;
   }

@@ -19,12 +19,14 @@ interface Props {
     endCursor: string;
   };
   menuItems: MenuItem[];
+  lastUpdated: string;
 }
 
 export default function Page({
   menuItems,
   releases,
   releasePagination: { hasNextPage, endCursor },
+  lastUpdated,
 }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [latestHasNextPage, setLatestHasNextPage] = useState(hasNextPage);
@@ -90,6 +92,22 @@ export default function Page({
   return (
     <Layout menuItems={menuItems}>
       <div className="min-h-screen bg-polar py-6 lg:py-12">
+        <div className="xl:w-1/2 mx-auto flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-mirage">Atlas Roadmap</h1>
+            <p className="font-light">
+              <em>Last Updated: {lastUpdated}</em>
+            </p>
+          </div>
+          <div>
+            <a
+              href="https://wpengine.com/atlas"
+              className="py-4 px-6 rounded bg-royal text-white hover:bg-royal-1200 transition-colors"
+            >
+              Try Atlas
+            </a>
+          </div>
+        </div>
         {latestReleases.map((release) => (
           <ReleaseCard release={release} key={release.id} />
         ))}
@@ -98,11 +116,11 @@ export default function Page({
             <button
               type="button"
               onClick={loadMoreReleases}
-              className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-royal hover:bg-royal-800 transition ease-in-out duration-150"
+              className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm rounded border-2 border-royal text-royal hover:bg-royal hover:text-white transition-colors ease-in-out duration-150"
             >
               {isLoading && (
                 <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-current"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -147,6 +165,11 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
             }
           }
         }
+        lastUpdated: releases(first: 1, where: {orderby: {field: MODIFIED, order: DESC}}) {
+    nodes {
+      modified
+    }
+  }
         releases(first: ${RELEASES_PER_PAGE}, where: {orderby: [{field: RELEASE_STATUS, order: ASC}, {field: DATE, order:DESC}]}) {
           pageInfo {
             hasNextPage
@@ -165,6 +188,13 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
   return {
     props: {
       menuItems: response.data.menu.menuItems.nodes,
+      lastUpdated: new Date(
+        response.data.lastUpdated.nodes[0]?.modified
+      ).toLocaleString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }),
       releases: [...response.data.releases.nodes],
       releasePagination: {
         hasNextPage: response.data.releases.pageInfo.hasNextPage,

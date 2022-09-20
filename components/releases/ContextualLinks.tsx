@@ -13,7 +13,7 @@ export function ContextualLinks({ release }: Props) {
             <a
               href={link.url}
               target="_blank"
-              className="inline-block border-r pr-3 mr-3 last:pr-0 last:mr-0 last:border-r-0 text-mirage-500 hover:text-sunset transition-colors border-mirage-500"
+              className="inline-flex items-center border-r pr-3 mr-3 last:pr-0 last:mr-0 last:border-r-0 border-royal text-royal text-xs hover:text-sunset transition-colors"
               key={link.url}
             >
               {
@@ -22,6 +22,21 @@ export function ContextualLinks({ release }: Props) {
                     link.type
                   ) /* Unslugify needed because of ACF WPGQL bug */
               }
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="ml-1"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M0.25 2.5C0.25 1.25736 1.25736 0.25 2.5 0.25H11.5C12.7426 0.25 13.75 1.25736 13.75 2.5V11.5C13.75 12.7426 12.7426 13.75 11.5 13.75H3.71599C2.04554 13.75 1.20898 11.7304 2.39017 10.5492L6.68934 6.25H5.5C5.08579 6.25 4.75 5.91421 4.75 5.5C4.75 5.08579 5.08579 4.75 5.5 4.75H8.5C8.91421 4.75 9.25 5.08579 9.25 5.5V8.5C9.25 8.91421 8.91421 9.25 8.5 9.25C8.08579 9.25 7.75 8.91421 7.75 8.5V7.31066L3.45083 11.6098C3.21459 11.8461 3.3819 12.25 3.71599 12.25H11.5C11.9142 12.25 12.25 11.9142 12.25 11.5V2.5C12.25 2.08579 11.9142 1.75 11.5 1.75H2.5C2.08579 1.75 1.75 2.08579 1.75 2.5V6.25C1.75 6.66421 1.41421 7 1 7C0.585786 7 0.25 6.66421 0.25 6.25V2.5Z"
+                  fill="currentColor"
+                />
+              </svg>
             </a>
           ))}
         </div>

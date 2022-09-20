@@ -12,9 +12,14 @@ module.exports = {
     },
     "lg:opacity-0",
     "lg:opacity-100",
+    "pointer-events-auto",
+    "pointer-events-none",
   ],
   theme: {
     extend: {
+      fontFamily: {
+        "open-sans": ['"Open Sans"'],
+      },
       colors: {
         mirage: {
           100: "hsl(197, 100%, 51%)",
@@ -53,7 +58,7 @@ module.exports = {
           DEFAULT: "hsl(167, 72%, 60%)",
         },
         lapis: {
-          100: "hsl(208, 100%, 86%)",
+          100: "hsla(209, 77%, 92%)",
           200: "hsl(208, 100%, 81%)",
           300: "hsl(208, 100%, 76%)",
           400: "hsl(208, 100%, 71%)",
@@ -65,7 +70,7 @@ module.exports = {
           DEFAULT: "hsl(208, 100%, 46%)",
         },
         royal: {
-          100: "hsl(254, 82%, 92%)",
+          100: "hsla(253, 78%, 96%, 1)",
           200: "hsl(254, 82%, 89%)",
           300: "hsl(254, 82%, 86%)",
           400: "hsl(254, 82%, 83%)",
@@ -74,13 +79,14 @@ module.exports = {
           700: "hsl(254, 82%, 74%)",
           800: "hsl(254, 82%, 71%)",
           900: "hsl(254, 82%, 68%)",
+          1200: "hsl(254, 82%, 60%)",
           DEFAULT: "hsl(254, 82%, 65%)",
         },
         polar: "hsl(210, 37%, 97%)",
         ash: "#98a2a7",
         soot: "#6b757b",
         sunset: {
-          100: "hsl(19, 100%, 98%)",
+          100: "hsla(42, 100%, 92%)",
           200: "hsl(19, 100%, 93%)",
           300: "hsl(19, 100%, 88%)",
           400: "hsl(19, 100%, 83%)",

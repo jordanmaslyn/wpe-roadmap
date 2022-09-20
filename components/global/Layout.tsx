@@ -10,7 +10,10 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
 
   return (
     <>
-      <header className="bg-white flex items-center">
+      <header
+        className="bg-white flex items-center"
+        style={{ boxShadow: "inset 0px -1px 0px #CFDDE9" }}
+      >
         <a href="/">
           <figure className="px-8 py-6">
             <img
