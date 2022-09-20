@@ -12,12 +12,6 @@ export function ReleaseCard({ release }: Props) {
   const hasReleaseTiming =
     !!release.customFields.releaseDate ||
     !!release.customFields.expectedRelease;
-  console.log(
-    release.title,
-    release.customFields.releaseDate,
-    release.customFields.expectedRelease,
-    hasReleaseTiming
-  );
   const hasCta =
     release.customFields.callToAction.url &&
     release.customFields.callToAction.label;
