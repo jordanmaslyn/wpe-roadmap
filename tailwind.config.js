@@ -10,6 +10,8 @@ module.exports = {
       pattern:
         /(bg|text|border)-(mirage|tiffany|seafoam|lapis|royal|sunset|dollabillz|polar|soot|ash)/,
     },
+    "lg:opacity-0",
+    "lg:opacity-100",
   ],
   theme: {
     extend: {

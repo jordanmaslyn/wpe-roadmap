@@ -4,7 +4,7 @@ import { useState } from "react";
 
 interface Props {
   item: MenuItem;
-  isChild: boolean;
+  isChild?: boolean;
 }
 
 export default function MenuItem({ item, isChild = false }: Props) {
@@ -24,7 +24,6 @@ export default function MenuItem({ item, isChild = false }: Props) {
 
   return (
     <li
-      key={item.url}
       className="lg:mr-6 relative"
       onMouseLeave={() => updateExpanded(false)}
       onMouseEnter={() => updateExpanded(true)}
@@ -55,13 +54,16 @@ export default function MenuItem({ item, isChild = false }: Props) {
           <img
             src={`/img/caret-${isExpanded ? "up" : "down"}.svg`}
             alt={isExpanded ? "Arrow Down" : "Arrow Up"}
+            className="hidden lg:block"
           />
         )}
       </span>
       {!!item.children?.length && !isChild && (
         <ul
-          className="lg:absolute bg-white min-w-full lg:top-full lg:translate-y-0.5 transition-opacity"
-          style={{ padding: "3px 9px", opacity: isExpanded ? 1 : 0 }}
+          className={`lg:absolute bg-white min-w-full lg:top-full lg:translate-y-0.5 lg:opacity-${
+            isExpanded ? "100" : "0"
+          } transition-opacity`}
+          style={{ padding: "3px 9px" }}
         >
           {item.children.map((item) => (
             <MenuItem item={item} isChild={true} key={item.id} />

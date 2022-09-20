@@ -27,7 +27,7 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
             />
           </figure>
         </a>
-        <div className="block lg:hidden">
+        <div className="block lg:hidden ml-auto px-8 py-6">
           <button
             onClick={() => {
               setMobileNavIsOpen((status) => !status);
@@ -45,20 +45,20 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
         <nav className="py-2 hidden lg:block ml-auto">
           <ul className="flex">
             {flatListToHierarchical(menuItems).map((item) => (
-              <MenuItemComponent item={item} />
+              <MenuItemComponent item={item} key={item.id} />
             ))}
           </ul>
         </nav>
       </header>
       <nav
-        className={`lg:hidden bg-mirage opacity-0 pointer-events-none ${
+        className={`lg:hidden bg-white opacity-0 pb-4 pointer-events-none ${
           mobileNavIsOpen ? "pointer-events-auto opacity-100" : ""
-        } transition-opacity fixed w-full`}
-        style={{ top: "41px" }}
+        } transition-opacity fixed w-full border-tiffany border-b-2`}
+        style={{ top: "82px" }}
       >
         <ul>
           {flatListToHierarchical(menuItems).map((menuItem) => (
-            <MenuItemComponent item={menuItem} />
+            <MenuItemComponent item={menuItem} key={menuItem.id} />
           ))}
         </ul>
       </nav>
