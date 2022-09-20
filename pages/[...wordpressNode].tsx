@@ -1,5 +1,5 @@
 import "faustnx.config";
-import { getWordPressProps, WordPressTemplate } from "../faust-nx/dist/cjs";
+import { getWordPressProps, WordPressTemplate } from "../faust-nx/dist/mjs";
 import { GetStaticPropsContext } from "next";
 import client from "client";
 

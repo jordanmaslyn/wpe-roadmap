@@ -1,6 +1,5 @@
-import { gql } from "@apollo/client";
-import Link from "next/link";
 import { PropsWithChildren, useState } from "react";
+import MenuItemComponent, { MenuItem } from "./MenuItem";
 
 interface Props {
   menuItems: MenuItem[];
@@ -11,20 +10,20 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
 
   return (
     <>
-      <header className="bg-mirage flex items-center">
+      <header className="bg-white flex items-center">
         <a href="/">
-          <figure className="lg:pr-6 lg:mr-6 lg:border-r border-polar ml-2 my-2">
+          <figure className="px-8 py-6">
             <img
-              src="/img/default-logo.svg"
-              alt="Logo"
+              src="/img/logo-light-bg.svg"
+              alt="WP Engine Logo"
               className="hidden lg:block"
-              style={{ height: "40px", width: "auto" }}
+              style={{ height: "24px", width: "auto" }}
             />
             <img
-              src="/img/small-logo.svg"
-              alt="Logo"
+              src="/img/logo-light-bg.svg"
+              alt="WP Engine Logo"
               className="block lg:hidden"
-              style={{ height: "25px", width: "auto" }}
+              style={{ height: "24px", width: "auto" }}
             />
           </figure>
         </a>
@@ -43,39 +42,13 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
             </span>
           </button>
         </div>
-        <nav className="py-2 hidden lg:block">
+        <nav className="py-2 hidden lg:block ml-auto">
           <ul className="flex">
-            {menuItems.map(
-              (item) =>
-                item.url && (
-                  <li className="mr-6" key={item.url}>
-                    <Link
-                      href={item.url}
-                      target={item.target ?? "_self"}
-                      title={item.title ?? undefined}
-                    >
-                      <a className="text-polar hover:text-tiffany transition-colors">
-                        {item.label}
-                      </a>
-                    </Link>
-                  </li>
-                )
-            )}
+            {flatListToHierarchical(menuItems).map((item) => (
+              <MenuItemComponent item={item} />
+            ))}
           </ul>
         </nav>
-        <div className="flex ml-auto self-stretch text-xs lg:text-base">
-          {/* <a
-            className="h-full bg-mirage text-white flex px-3 md:px-5 items-center font-bold"
-            href="https://wpengine.com/atlas"
-          >
-            <span>Give Feedback</span>
-          </a> */}
-          <Link href="https://wpengine.com/atlas" target="_blank">
-            <a className="h-full bg-royal text-white flex px-3 md:px-5 items-center font-bold">
-              <span>Try Atlas</span>
-            </a>
-          </Link>
-        </div>
       </header>
       <nav
         className={`lg:hidden bg-mirage opacity-0 pointer-events-none ${
@@ -84,20 +57,9 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
         style={{ top: "41px" }}
       >
         <ul>
-          {menuItems.map(
-            (menuItem) =>
-              menuItem.url && (
-                <li key={menuItem.url}>
-                  <Link
-                    href={menuItem.url}
-                    target={menuItem.target ?? "_self"}
-                    title={menuItem.title ?? menuItem.label}
-                  >
-                    <a className="text-white block p-2">{menuItem.label}</a>
-                  </Link>
-                </li>
-              )
-          )}
+          {flatListToHierarchical(menuItems).map((menuItem) => (
+            <MenuItemComponent item={menuItem} />
+          ))}
         </ul>
       </nav>
       {children}
@@ -105,18 +67,20 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
   );
 }
 
-export interface MenuItem {
-  url: string;
-  label: string;
-  target: string | null;
-  title: string | null;
-}
-
-export const MenuItemFragment = gql`
-  fragment MenuItem on MenuItem {
-    url
-    label
-    target
-    title
-  }
-`;
+const flatListToHierarchical = (
+  data = [] as MenuItem[],
+  { idKey = "id", parentKey = "parentId", childrenKey = "children" } = {}
+) => {
+  const tree = [];
+  const childrenOf = {};
+  data.forEach((item) => {
+    const newItem = { ...item };
+    const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+    childrenOf[id] = childrenOf[id] || [];
+    newItem[childrenKey] = childrenOf[id];
+    parentId
+      ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+      : tree.push(newItem);
+  });
+  return tree;
+};
