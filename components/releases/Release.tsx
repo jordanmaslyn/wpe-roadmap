@@ -48,7 +48,7 @@ export function ReleaseCard({ release }: Props) {
         {(hasReleaseTiming || hasCta) && (
           <footer className="flex justify-between items-center flex-wrap">
             {hasReleaseTiming && (
-              <p className="text-soot">
+              <p className="text-soot text-center lg:text-left w-full lg:w-auto mb-2 lg:mb-0">
                 <em>
                   {!!release.customFields.releaseDate
                     ? "Released"
