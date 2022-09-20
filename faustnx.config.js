@@ -1,4 +1,4 @@
-import { setConfig } from "./faust-nx/dist/cjs";
+import { setConfig } from "./faust-nx/dist/mjs";
 import templates from "./wp-templates";
 
 /**
