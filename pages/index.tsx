@@ -10,7 +10,7 @@ import { Layout } from "components/global/Layout";
 import { MenuItem, MenuItemFragment } from "components/global/MenuItem";
 import { MouseEvent, useState } from "react";
 
-const RELEASES_PER_PAGE = 3;
+const RELEASES_PER_PAGE = 5;
 
 interface Props {
   releases: Release[];
