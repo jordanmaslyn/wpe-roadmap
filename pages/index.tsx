@@ -204,5 +204,6 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
       },
       settings: response.data.siteGeneralSettings.siteSettings,
     },
+    revalidate: 60,
   };
 }
