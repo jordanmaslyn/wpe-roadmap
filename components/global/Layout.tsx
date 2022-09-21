@@ -70,26 +70,17 @@ export function Layout({ children, menuItems }: PropsWithChildren<Props>) {
   );
 }
 
-const flatListToHierarchical = (
-  data = [] as MenuItem[],
-  { idKey = "id", parentKey = "parentId", childrenKey = "children" } = {}
-) => {
-  // @ts-ignore
-  const tree = [];
-  const childrenOf = {};
-  data.forEach((item) => {
+const flatListToHierarchical = (data: MenuItem[] = []) => {
+  const tree = [] as MenuItem[];
+  const childrenOf = {} as Record<string, any[]>;
+  data.forEach((item: MenuItem) => {
     const newItem = { ...item };
-    // @ts-ignore
-    const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
-    // @ts-ignore
+    const { id, parentId = 0 } = newItem;
     childrenOf[id] = childrenOf[id] || [];
-    // @ts-ignore
-    newItem[childrenKey] = childrenOf[id];
+    newItem.children = childrenOf[id];
     parentId
-      ? // @ts-ignore
-        (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+      ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
       : tree.push(newItem);
   });
-  // @ts-ignore
   return tree;
 };
