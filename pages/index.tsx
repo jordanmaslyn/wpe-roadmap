@@ -9,6 +9,7 @@ import {
 import { Layout } from "components/global/Layout";
 import { MenuItem, MenuItemFragment } from "components/global/MenuItem";
 import { MouseEvent, useState } from "react";
+import Head from "next/head";
 
 const RELEASES_PER_PAGE = 5;
 
@@ -90,64 +91,90 @@ export default function Page({
   };
 
   return (
-    <Layout menuItems={menuItems}>
-      <div className="min-h-screen bg-polar py-6 lg:py-12">
-        <div className="xl:w-1/2 mx-auto px-2 flex justify-between items-center">
-          <div className="">
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-mirage">
-              Atlas Roadmap
-            </h1>
-            <p className="text-sm lg:text-base font-light">
-              <em>Last Updated: {lastUpdated}</em>
-            </p>
+    <>
+      <Head>
+        <title>Atlas Roadmap | WP Engine&reg;</title>
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#002838" />
+        <meta name="msapplication-TileColor" content="#002838" />
+        <meta name="theme-color" content="#002838" />
+      </Head>
+      <Layout menuItems={menuItems}>
+        <div className="min-h-screen bg-polar py-6 lg:py-12">
+          <div className="xl:w-1/2 mx-auto px-2 flex justify-between items-center">
+            <div className="">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-mirage">
+                Atlas Roadmap
+              </h1>
+              <p className="text-sm lg:text-base font-light">
+                <em>Last Updated: {lastUpdated}</em>
+              </p>
+            </div>
+            <div>
+              <a
+                href="https://wpengine.com/atlas"
+                className="py-4 px-6 rounded bg-royal text-white hover:bg-royal-1200 transition-colors"
+              >
+                Try Atlas
+              </a>
+            </div>
           </div>
-          <div>
-            <a
-              href="https://wpengine.com/atlas"
-              className="py-4 px-6 rounded bg-royal text-white hover:bg-royal-1200 transition-colors"
-            >
-              Try Atlas
-            </a>
-          </div>
+          {latestReleases.map((release) => (
+            <ReleaseCard release={release} key={release.id} />
+          ))}
+          {latestHasNextPage && (
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={loadMoreReleases}
+                className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm rounded border-2 border-royal text-royal hover:bg-royal hover:text-white transition-colors ease-in-out duration-150"
+              >
+                {isLoading && (
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                )}
+                <span>{isLoading ? "Loading More ..." : "Load More"}</span>
+              </button>
+            </div>
+          )}
         </div>
-        {latestReleases.map((release) => (
-          <ReleaseCard release={release} key={release.id} />
-        ))}
-        {latestHasNextPage && (
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={loadMoreReleases}
-              className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm rounded border-2 border-royal text-royal hover:bg-royal hover:text-white transition-colors ease-in-out duration-150"
-            >
-              {isLoading && (
-                <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-              )}
-              <span>{isLoading ? "Loading More ..." : "Load More"}</span>
-            </button>
-          </div>
-        )}
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }
 
