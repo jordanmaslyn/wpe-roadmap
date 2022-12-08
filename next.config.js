@@ -1,4 +1,6 @@
 const nextConfig = {
+  // Use the absolute URL if one is set.
+  assetPrefix: process.env.ASSET_URL_PREFIX ?? undefined,
   async rewrites() {
     return [
       {
